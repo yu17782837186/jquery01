@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>jquery的封装原理</title>
+		<meta charset="UTF-8"/>
+	
+		
+		<script src="js/my.js" type="text/javascript" charset="UTF-8"></script>
+			
+		<script type="text/javascript">
+			function test(){
+				alert("我是test");
+			}
+//			var yxh=456;//将对象改成变量名，破坏了原有结构
+
+			var yxh=456;
+			
+			//闭包原理  在全局中不能获取函数体的数据
+			function test3(){
+				function test2(){
+					test2.name="小红";
+					var m=5;
+					alert(yxh);
+					return m;
+				}
+				return test2;//是一个对象 存了所有的数据
+			}
+	
+			
+		</script>
+		
+	</head>
+	<body>
+		<h3>jquery的封装原理</h3>
+		<input type="button" name="" id="" value="测试" onclick="getyxh().test();"/>
+		<hr />
+		<ul>
+			<li>1,js的全局代码区只有一个，同名变量会被覆盖</li>
+			<li>2,使用对象封装，将代码装到对象中，但是对象如果被覆盖，则会失效</li>
+			<li>3,使用工厂模式,将代码进行封装，但是并没有解决问题</li>
+			<li>4,将封装的函数名字去除，避免覆盖，但是函数没有办法调用</li>
+			<li>5,匿名自调用,可以在页面加载的时候调用一次，但是不能重复调用，并且数据没有办法获取</li>
+			<li>6,使用闭包,将数据一次性挂载到window对象下</li>
+		</ul>
+	</body>
+</html>
